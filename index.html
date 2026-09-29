@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Windows 7 Bento Edition</title>
+    <style>
+        /* CSS Reset & Styling Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --win7-bg: #e6def0;
+            --win7-window-bg: rgba(255, 255, 255, 0.75);
+            --win7-border: #bca5d6;
+            --win7-border-outer: #7d57a9;
+            --win7-header: linear-gradient(to bottom, #d2bfe6 0%, #a282c7 100%);
+            --win7-header-text: #2c1b40;
+            --win7-text: #3d2c52;
+            --win7-accent: #9065c0;
+            --win7-accent-hover: #7d57a9;
+            --win7-card-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 8px 32px rgba(90, 50, 130, 0.15);
+        }
+
+        body {
+            background-color: var(--win7-bg);
+            /* Wallpaper gaya Windows 7 nuansa ungu pastel */
+            background-image: radial-gradient(circle at 50% 30%, #f4eef9 0%, #d8c6eb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--win7-text);
+        }
+
+        /* Frame Utama ala Windows 7 Window */
+        .win7-window {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--win7-window-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 2px solid var(--win7-border-outer);
+            border-radius: 8px;
+            box-shadow: 0 16px 40px rgba(70, 30, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            animation: windowOpen 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+        }
+
+        @keyframes windowOpen {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Title Bar Windows 7 */
+        .win7-titlebar {
+            background: var(--win7-header);
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--win7-border);
+            color: var(--win7-header-text);
+            font-weight: 600;
+            font-size: 14px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .win7-title-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .win7-icon {
+            width: 18px;
+            height: 18px;
+            background: #7d57a9;
+            border-radius: 4px;
+            display: inline-block;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        /* Tombol Kontrol Windows (Minimize, Maximize, Close) */
+        .win7-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .win7-btn {
+            width: 22px;
+            height: 18px;
+            background: linear-gradient(to bottom, #f2ecf8 0%, #d3c2e6 100%);
+            border: 1px solid #9c7ec0;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4a3563;
+        }
+
+        .win7-btn:hover {
+            background: linear-gradient(to bottom, #fff5f5 0%, #fcd6d6 100%);
+            border-color: #d9534f;
+            color: #d9534f;
+        }
+
+        /* Content Area (Bento Grid) */
+        .win7-content {
+            padding: 24px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        /* Kartu Bento dengan Nuansa Glassmorphism & Aero */
+        .bento-card {
+            background: var(--win7-card-bg);
+            border: 1px solid var(--win7-border);
+            border-radius: 6px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(100, 70, 140, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(100, 70, 140, 0.18);
+            border-color: var(--win7-accent);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Ukuran Bento Card */
+        .card-hero {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(226, 211, 242, 0.6) 100%);
+        }
+
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            object-fit: cover;
+            background: #caaef2;
+        }
+
+        .card-about {
+            grid-column: span 1;
+        }
+
+        .card-skills {
+            grid-column: span 1;
+        }
+
+        .card-projects {
+            grid-column: span 2;
+        }
+
+        .card-social {
+            grid-column: span 3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tipografi & Elemen Kartu */
+        h1 {
+            font-size: 22px;
+            color: #311d4a;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #6a518a;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #48385d;
+        }
+
+        h3 {
+            font-size: 15px;
+            color: #311d4a;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--win7-border);
+            padding-bottom: 5px;
+        }
+
+        /* Daftar Skill */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .skill-tag {
+            background: #e2d1f5;
+            border: 1px solid #bca5d6;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #4a2c70;
+            font-weight: 500;
+        }
+
+        /* Tombol Tautan Sosial */
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .win7-button-action {
+            background: linear-gradient(to bottom, #f0e6fc 0%, #d3bee8 100%);
+            border: 1px solid #9c7ec0;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #311d4a;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+            transition: all 0.2s;
+        }
+
+        .win7-button-action:hover {
+            background: linear-gradient(to bottom, #d3bee8 0%, #bca5d6 100%);
+            border-color: #7d57a9;
+        }
+
+        /* Status Bar bawah ala Windows 7 */
+        .win7-statusbar {
+            background: #e1d3f0;
+            border-top: 1px solid var(--win7-border);
+            padding: 4px 12px;
+            font-size: 11px;
+            color: #5c447a;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-hero, .card-about, .card-skills, .card-projects, .card-social {
+                grid-column: span 1;
+            }
+            .card-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .card-social {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="win7-window">
+        <!-- Windows 7 Title Bar -->
+        <div class="win7-titlebar">
+            <div class="win7-title-left">
+                <span class="win7-icon"></span>
+                <span>Profil_Saya.exe - Bento Grid Aero</span>
+            </div>
+            <div class="win7-controls">
+                <div class="win7-btn" title="Minimize">🗕</div>
+                <div class="win7-btn" title="Maximize">🗖</div>
+                <div class="win7-btn" title="Close" onclick="closeWindow()">✕</div>
+            </div>
+        </div>
+
+        <!-- Bento Grid Content Area -->
+        <div class="win7-content">
+            <div class="bento-grid">
+                
+                <!-- 1. Hero Card -->
+                <div class="bento-card card-hero">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Foto Profil" class="profile-pic">
+                    <div>
+                        <h1>Halo, Saya [Nama Anda]</h1>
+                        <div class="subtitle">Web Developer & Creative Enthusiast</div>
+                        <p>Selamat datang di portofolio digital saya yang dikemas dengan nuansa klasik Windows 7 dan sentuhan warna ungu pastel yang menenangkan.</p>
+                    </div>
+                </div>
+
+                <!-- 2. About Me Card -->
+                <div class="bento-card card-about">
+                    <h3>Tentang Saya</h3>
+                    <p>Saya seorang pengembang web yang antusias menciptakan pengalaman antarmuka yang bersih, responsif, dan estetis. Suka mengeksplorasi desain retro maupun modern.</p>
+                </div>
+
+                <!-- 3. Skills Card -->
+                <div class="bento-card card-skills">
+                    <h3>Keahlian Utama</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+
+                <!-- 4. Projects Card -->
+                <div class="bento-card card-projects">
+                    <h3>Proyek Unggulan</h3>
+                    <p><strong>Aplikasi Dashboard Pastel</strong><br>
+                    Sebuah sistem manajemen tugas dengan tema warna pastel yang interaktif dan ramah pengguna.</p>
+                </div>
+
+                <!-- 5. Social Media & Contact Card -->
+                <div class="bento-card card-social">
+                    <div>
+                        <strong>Terhubung dengan saya:</strong>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" class="win7-button-action">GitHub</a>
+                        <a href="https://linkedin.com" target="_blank" class="win7-button-action">LinkedIn</a>
+                        <a href="mailto:email@domain.com" class="win7-button-action">Kirim Email</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Windows 7 Status Bar -->
+        <div class="win7-statusbar">
+            <span>Ready</span>
+            <span id="current-time">12:00 PM</span>
+        </div>
+    </div>
+
+    <!-- JavaScript Sederhana -->
+    <script>
+        // Fungsi simulasi tombol close
+        function closeWindow() {
+            if (confirm("Tutup jendela profil ini?")) {
+                document.querySelector('.win7-window').style.display = 'none';
+                document.body.innerHTML += '<div style="text-align:center; color:#311d4a; font-weight:bold; margin-top:20vh;">Jendela ditutup. Refresh halaman untuk membuka kembali.</div>';
+            }
+        }
+
+        // Jam dinamis di status bar ala Windows 7
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // jam 0 jadi 12
+            document.getElementById('current-time').innerText = `${hours}:${minutes} ${ampm}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
